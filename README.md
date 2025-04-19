@@ -1,43 +1,54 @@
-# Screening Test – Summer Internship under Dr. Abhijit Chandra - Analytics Dashboard Assessment
+# **Electric Vehicle Analytics Dashboard**
 
-## Overview
+## **Overview**
+This project provides an **interactive analytics dashboard** for exploring the **Electric Vehicle (EV) population data** in Washington State. It visualizes key insights and trends in EV adoption, vehicle specifications, geographic distribution, and more using charts and statistics.
 
-The objective of this assessment is to analyze the provided Electric Vehicle (EV) population data and create a frontend dashboard that visualizes key insights about the dataset. This repository contains the necessary data and instructions for you to demonstrate your analytical and dashboard creation skills. Feel free to use any tech stack you want to create the dashboard.
 
-## Dataset
+## **Features**
+- **Interactive Visualizations**: Multiple chart types (**bar**, **pie**, **line**) for different aspects of the EV dataset
+- **Multi-tab Interface**: Organized by **Overview**, **Vehicles**, **Geography**, and **Details** sections
+- **Responsive Design**: Works on **desktop** and **mobile devices**
+- **Filter Capabilities**: Analyze data by specific parameters
+- **Summary Statistics**: Key metrics displayed for quick insights
 
-The Electric Vehicle Population dataset is available in the [Electric Vehicle Population Data (CSV)](./data-to-visualize/Electric_Vehicle_Population_Data.csv) within this repository, for more information about the dataset visit [kaggle dataset](https://www.kaggle.com/datasets/willianoliveiragibin/electric-vehicle-population).
+## **Technology Stack**
+- **Frontend Framework**: React 19.0.0
+- **Visualization Libraries**:
+  - Chart.js / react-chartjs-2
+  - Recharts
+- **Data Processing**: PapaParse for CSV parsing
+- **Styling**: Tailwind CSS
+- **Build Tool**: Vite 6.3.1
 
-**Note:** We've reduced the dataset in the repository to keep the data size small in the frontend bundle.
+## **Data Insights**
+The dashboard provides key insights about the Washington EV population:
+- **Vehicle Types**: Distribution between **Battery Electric Vehicles (BEV)** and **Plug-in Hybrid Electric Vehicles (PHEV)**
+- **Popular Makes and Models**: Analysis of the most common manufacturers and vehicle models
+- **Geographic Distribution**: County-level analysis of EV adoption
+- **Battery Range Analysis**: Distribution of electric ranges across the vehicle population
+- **Year-over-Year Growth**: Trends in EV adoption over time
+- **Utility Distribution**: Analysis of electric utilities serving EV owners
+- **CAFV Eligibility**: Clean Alternative Fuel Vehicle eligibility statistics
 
-## Tasks
 
-### Dashboard Creation:
+## **Local Development**
+To run this project locally:
 
-- Create a frontend dashboard that presents key insights from the dataset.
-- Design the dashboard to effectively communicate important metrics and visualizations.
-- Include visual representations such as charts, graphs, or tables to showcase trends and relationships in the data.
-- Ensure the dashboard is user-friendly and intuitive for exploring the dataset.
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/yourusername/ev-analytics-dashboard.git
+   cd ev-analytics-dashboard
+   ```
 
-### Deployment:
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-- Deploy your frontend dashboard to a hosting platform of your choice.
-- Make sure the dashboard is publicly accessible.
+3. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
 
-## Evaluation
+4. **Open your browser** at [http://localhost:5173](http://localhost:5173)
 
-Your submission will be evaluated based on:
-
-- **Analytical Depth:** The depth of your analysis and insights derived from the dataset.
-- **Dashboard Design:** Clarity, aesthetics, and usability of the frontend dashboard.
-- **Insightfulness:** Effectiveness in conveying key insights about electric vehicles.
-
-## Submission Guidelines
-
-- Fork this repository to your GitHub account.
-- Complete your analysis and create the frontend dashboard.
-- Deploy the dashboard to a hosting platform.
-- Update this [README.md](README.md) file with the URL to your live dashboard.
-- **Repository Access:** Keep your repository private to avoid visibility by other candidates. Add the following email addresses as collaborators to the repository, these are our internal emails and will be evaluating your assessment:
-  - kandaramit5@gmail.com
-- Finally, please fill out the google form that you received via email to submit the assessment for review.
