@@ -1,25 +1,55 @@
+import { useMemo, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import { processCountyData } from '../../utils/dataProcessing';
-import { useState } from 'react';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-const CountyDistributionChart = ({ data }) => {
+export default function CountyDistributionChart({ data }) {
   const [limit, setLimit] = useState(10);
-  
-  const countyData = processCountyData(data);
-  
-  // Limit the displayed counties
-  const limitedData = {
-    ...countyData,
-    labels: countyData.labels.slice(0, limit),
-    datasets: [{
-      ...countyData.datasets[0],
-      data: countyData.datasets[0].data.slice(0, limit)
-    }]
-  };
-  
+
+  const chartData = useMemo(() => {
+    // Count EVs by county
+    const counties = data.reduce((acc, vehicle) => {
+      const county = vehicle.County || "Unknown";
+      acc[county] = (acc[county] || 0) + 1;
+      return acc;
+    }, {});
+
+    // Sort counties by count and limit
+    const sortedCounties = Object.entries(counties)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, limit);
+
+    return {
+      labels: sortedCounties.map(([county]) => county),
+      datasets: [
+        {
+          label: 'EV Count',
+          data: sortedCounties.map(([_, count]) => count),
+          backgroundColor: 'rgba(153, 102, 255, 0.6)',
+          borderColor: 'rgba(153, 102, 255, 1)',
+          borderWidth: 1,
+        },
+      ],
+    };
+  }, [data, limit]);
+
   const options = {
     indexAxis: 'y',
     responsive: true,
@@ -28,43 +58,64 @@ const CountyDistributionChart = ({ data }) => {
       legend: {
         display: false,
       },
-      title: {
-        display: true,
-        text: 'EV Distribution by County',
-        font: {
-          size: 16
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            const value = context.raw;
+            const total = data.length;
+            const percentage = ((value / total) * 100).toFixed(1);
+            return `EVs: ${value} (${percentage}% of total)`;
+          }
         }
       }
     },
     scales: {
       x: {
         beginAtZero: true,
-      }
-    }
+        title: {
+          display: true,
+          text: 'Number of Electric Vehicles',
+        },
+        grid: {
+          display: true,
+          drawBorder: false,
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'County',
+        },
+        grid: {
+          display: false,
+        },
+      },
+    },
   };
-  
+
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md h-full">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold">Geographic Distribution</h2>
-        <div>
-          <select 
-            value={limit} 
+    <Card className="h-full">
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <CardTitle>EV Distribution by County</CardTitle>
+          <select
+            value={limit}
             onChange={(e) => setLimit(Number(e.target.value))}
-            className="border rounded p-1 text-sm"
+            className="text-sm border border-gray-300 rounded px-2 py-1"
           >
-            <option value="5">Top 5</option>
-            <option value="10">Top 10</option>
-            <option value="15">Top 15</option>
-            <option value="20">Top 20</option>
+            <option value={5}>Top 5</option>
+            <option value={10}>Top 10</option>
+            <option value={15}>Top 15</option>
+            <option value={20}>Top 20</option>
+            <option value={39}>All Counties</option>
           </select>
         </div>
-      </div>
-      <div className="h-[400px]">
-        <Bar data={limitedData} options={options} />
-      </div>
-    </div>
+      </CardHeader>
+      <CardContent>
+        <div className="h-[400px]">
+          <Bar data={chartData} options={options} />
+        </div>
+      </CardContent>
+    </Card>
   );
-};
-
-export default CountyDistributionChart;
+}
