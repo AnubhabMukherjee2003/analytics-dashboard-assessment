@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
-import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '../ui/Card';
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
@@ -26,16 +26,18 @@ export default function EVTypeChart({ data }) {
         {
           data: Object.values(evTypes),
           backgroundColor: [
-            'rgba(54, 162, 235, 0.8)',
-            'rgba(255, 159, 64, 0.8)',
-            'rgba(153, 102, 255, 0.8)',
+            'rgba(59, 130, 246, 0.8)',
+            'rgba(245, 158, 11, 0.8)',
+            'rgba(139, 92, 246, 0.8)',
           ],
           borderColor: [
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(153, 102, 255, 1)',
+            'rgba(255, 255, 255, 1)',
+            'rgba(255, 255, 255, 1)',
+            'rgba(255, 255, 255, 1)',
           ],
-          borderWidth: 1,
+          borderWidth: 2,
+          hoverOffset: 15,
+          hoverBorderWidth: 3,
         },
       ],
     };
@@ -50,10 +52,19 @@ export default function EVTypeChart({ data }) {
         labels: {
           padding: 20,
           usePointStyle: true,
+          pointStyle: 'circle',
           boxWidth: 10,
         },
       },
       tooltip: {
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        titleColor: '#1f2937',
+        bodyColor: '#4b5563',
+        borderColor: 'rgba(229, 231, 235, 1)',
+        borderWidth: 1,
+        padding: 12,
+        boxPadding: 6,
+        usePointStyle: true,
         callbacks: {
           label: function(context) {
             const value = context.raw;
@@ -64,15 +75,23 @@ export default function EVTypeChart({ data }) {
         }
       },
     },
+    animation: {
+      animateRotate: true,
+      animateScale: true,
+      duration: 1000,
+    },
+    cutout: '60%',
+    radius: '90%',
   };
 
   return (
     <Card className="h-full">
       <CardHeader>
         <CardTitle>Electric Vehicle Types</CardTitle>
+        <CardDescription>Distribution of EVs by vehicle type</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="h-[250px]">
+        <div className="h-[250px] flex items-center justify-center">
           <Pie data={chartData} options={options} />
         </div>
       </CardContent>

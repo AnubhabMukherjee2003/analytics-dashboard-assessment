@@ -46,13 +46,13 @@ export default function UtilityDistributionChart({ data }) {
     }
 
     const chartColors = [
-      '#3b82f6', // blue
-      '#10b981', // green
-      '#f59e0b', // amber
-      '#ef4444', // red
-      '#8b5cf6', // purple
-      '#06b6d4', // cyan
-      '#94a3b8', // slate
+      '#2563eb', // darker blue
+      '#059669', // darker green
+      '#d97706', // darker amber
+      '#dc2626', // darker red
+      '#7c3aed', // darker purple
+      '#0891b2', // darker cyan
+      '#64748b', // darker slate
     ];
 
     return {
@@ -86,7 +86,7 @@ export default function UtilityDistributionChart({ data }) {
           label: function(context) {
             const value = context.raw;
             const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
-            const percentage = Math.round((value / total) * 100);
+            const percentage = ((value / total) * 100).toFixed(1);
             return `${context.label}: ${value} (${percentage}%)`;
           }
         }

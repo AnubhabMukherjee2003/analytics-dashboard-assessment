@@ -98,6 +98,11 @@ export default function MakeModelChart({ data }) {
         }
       }
     },
+    hover: {
+      mode: 'nearest',
+      intersect: true,
+      animationDuration: 400,
+    },
     scales: {
       x: {
         beginAtZero: true,
@@ -115,37 +120,40 @@ export default function MakeModelChart({ data }) {
   };
 
   return (
-    <Card className="h-full">
-      <CardHeader>
+    <Card className="h-full chart-card">
+      <CardHeader className="chart-card-header">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <CardTitle>
+          <CardTitle className="chart-card-title">
             {chartType === 'make' ? 'Top Manufacturers' : 'Top Models'}
           </CardTitle>
-          <div className="flex gap-2">
-            <Button 
-              variant={chartType === 'make' ? 'primary' : 'secondary'} 
-              size="sm"
-              onClick={() => setChartType('make')}
-            >
-              Makes
-            </Button>
-            <Button 
-              variant={chartType === 'model' ? 'primary' : 'secondary'} 
-              size="sm"
-              onClick={() => setChartType('model')}
-            >
-              Models
-            </Button>
-            <select 
-              value={limit}
-              onChange={(e) => setLimit(Number(e.target.value))}
-              className="text-sm border border-gray-300 rounded px-2"
-            >
-              <option value={5}>Top 5</option>
-              <option value={10}>Top 10</option>
-              <option value={15}>Top 15</option>
-              <option value={20}>Top 20</option>
-            </select>
+          <div className="flex gap-2 items-center">
+            <div className="button-group">
+              <button 
+                className={`button-group-item ${chartType === 'make' ? 'active' : ''}`}
+                onClick={() => setChartType('make')}
+              >
+                Makes
+              </button>
+              <button 
+                className={`button-group-item ${chartType === 'model' ? 'active' : ''}`}
+                onClick={() => setChartType('model')}
+              >
+                Models
+              </button>
+            </div>
+            <div className="relative select-wrapper">
+              <select 
+                value={limit}
+                onChange={(e) => setLimit(Number(e.target.value))}
+                aria-label="Select number of items to display"
+                className="styled-select"
+              >
+                <option value={5}>Top 5</option>
+                <option value={10}>Top 10</option>
+                <option value={15}>Top 15</option>
+                <option value={20}>Top 20</option>
+              </select>
+            </div>
           </div>
         </div>
       </CardHeader>

@@ -94,21 +94,24 @@ export default function CountyDistributionChart({ data }) {
   };
 
   return (
-    <Card className="h-full">
-      <CardHeader>
+    <Card className="h-full chart-card">
+      <CardHeader className="chart-card-header">
         <div className="flex items-center justify-between">
-          <CardTitle>EV Distribution by County</CardTitle>
-          <select
-            value={limit}
-            onChange={(e) => setLimit(Number(e.target.value))}
-            className="text-sm border border-gray-300 rounded px-2 py-1"
-          >
-            <option value={5}>Top 5</option>
-            <option value={10}>Top 10</option>
-            <option value={15}>Top 15</option>
-            <option value={20}>Top 20</option>
-            <option value={39}>All Counties</option>
-          </select>
+          <CardTitle className="chart-card-title">EV Distribution by County</CardTitle>
+          <div className="relative">
+            <select
+              value={limit}
+              onChange={(e) => setLimit(Number(e.target.value))}
+              aria-label="Select number of counties to display"
+              className="pl-3 pr-8 py-1.5 rounded-md text-sm"
+            >
+              <option value={5}>Top 5</option>
+              <option value={10}>Top 10</option>
+              <option value={15}>Top 15</option>
+              <option value={20}>Top 20</option>
+              <option value={39}>All Counties</option>
+            </select>
+          </div>
         </div>
       </CardHeader>
       <CardContent>

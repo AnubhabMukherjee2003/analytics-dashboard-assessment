@@ -12,9 +12,10 @@ html, body {
 }
 
 .chart-container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 20px -4px rgba(0, 0, 0, 0.15), 0 6px 8px -2px rgba(0, 0, 0, 0.1);
 }
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -33,11 +34,11 @@ html, body {
 
 @layer components {
   .dashboard-card {
-    @apply bg-white rounded-lg border border-gray-200 shadow-sm transition-shadow hover:shadow-md;
+    @apply bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-card-hover;
   }
   
   .dashboard-stat {
-    @apply bg-white rounded-lg border border-gray-200 shadow-sm p-4;
+    @apply bg-white rounded-xl border border-gray-200 shadow-sm p-4 transition-all duration-300 hover:shadow-md;
   }
   
   .stat-value {
@@ -47,22 +48,104 @@ html, body {
   .chart-container {
     @apply p-0 h-full;
   }
+
+  /* Custom select styles */
+  .select-wrapper {
+    @apply relative inline-block;
+  }
+  
+  .custom-select {
+    @apply appearance-none bg-white border border-gray-300 rounded-lg px-3 py-2 pr-8 shadow-sm transition-all duration-150 ease-in-out;
+    @apply text-sm text-gray-700;
+    @apply focus:ring-2 focus:ring-primary-400/30 focus:border-primary-400 focus:outline-none;
+    @apply hover:border-gray-400;
+  }
+  
+  /* Styled Select */
+  .styled-select {
+    @apply block w-full rounded-lg border-gray-300 shadow-sm;
+    @apply bg-white px-4 py-2.5 text-sm text-gray-700;
+    @apply focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 focus:outline-none;
+    @apply transition duration-200 ease-in-out;
+    @apply cursor-pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    padding-right: 2.5rem;
+  }
+
+  .styled-select:hover {
+    @apply border-gray-400;
+  }
+  
+  .styled-select:focus {
+    @apply border-primary-500 ring-2 ring-primary-500/20;
+  }
+  
+  /* Custom chart card styles */
+  .chart-card {
+    @apply bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300;
+    @apply hover:shadow-card-hover hover:border-gray-300;
+  }
+
+  .chart-card-header {
+    @apply p-4 border-b border-gray-100 flex items-center justify-between;
+  }
+
+  .chart-card-title {
+    @apply font-medium text-gray-800;
+  }
+  
+  /* Dashboard UI Components */
+  .dashboard-header {
+    @apply bg-white border-b border-gray-200 py-4 px-6 shadow-sm sticky top-0 z-10;
+  }
+  
+  .dashboard-sidebar {
+    @apply bg-white border-r border-gray-200 h-screen sticky top-0;
+  }
+  
+  .dashboard-main {
+    @apply p-6 bg-gray-50;
+  }
+  
+  .dashboard-grid {
+    @apply grid gap-6;
+  }
+  
+  /* Button groups */
+  .button-group {
+    @apply flex rounded-lg overflow-hidden border border-gray-300 divide-x divide-gray-300;
+  }
+  
+  .button-group-item {
+    @apply px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-2 focus:ring-primary-500;
+  }
+  
+  .button-group-item.active {
+    @apply bg-primary-50 text-primary-700;
+  }
 }
 
-/* Transitions */
+/* Enhanced transitions */
 .fade-enter {
   opacity: 0;
+  transform: translateY(8px);
 }
 .fade-enter-active {
   opacity: 1;
-  transition: opacity 300ms;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
 }
 .fade-exit {
   opacity: 1;
+  transform: translateY(0);
 }
 .fade-exit-active {
   opacity: 0;
-  transition: opacity 300ms;
+  transform: translateY(8px);
+  transition: opacity 300ms, transform 300ms;
 }
 
 /* Custom scrollbar */
@@ -83,4 +166,27 @@ html, body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #a1a1a1;
+}
+
+/* Enhanced buttons */
+button.btn-primary {
+  @apply bg-primary-600 hover:bg-primary-700 text-white;
+  @apply shadow-button hover:shadow-button-hover transition-all duration-150;
+}
+
+button.btn-secondary {
+  @apply bg-gray-100 hover:bg-gray-200 text-gray-800;
+  @apply border border-gray-300 shadow-button hover:shadow-button-hover transition-all duration-150;
+}
+
+/* Better select styling for native selects */
+select:not(.custom-select) {
+  @apply appearance-none bg-white border border-gray-300 rounded-lg px-3 py-2 pr-8 shadow-sm;
+  @apply text-sm text-gray-700;
+  @apply focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 focus:outline-none;
+  @apply hover:border-gray-400;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1.25rem;
 }
