@@ -107,22 +107,23 @@ html, body {
   
   /* Dashboard UI Components */
   .dashboard-header {
-    @apply fixed top-0 inset-x-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 h-header z-header;
+    @apply fixed top-0 inset-x-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 h-header z-header shadow-sm; /* Added shadow */
   }
   
   .dashboard-sidebar {
-    @apply fixed left-0 w-sidebar top-16 z-sidebar
+    @apply fixed left-0 w-sidebar top-header z-sidebar /* Adjusted top */
            bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700
            transition-transform duration-200 ease-out lg:translate-x-0
-           pb-[64px]; /* Add padding bottom to account for footer */
-    height: calc(100vh - 4rem - 96px); /* Subtract header height (4rem) and footer height (96px) */
+           pb-16; /* Ensure space for footer */
+    height: calc(100vh - 4.5rem); /* Adjusted height */
     overflow-y: auto;
   }
   
   .dashboard-main {
-    @apply lg:ml-sidebar pt-header min-h-screen
+    @apply lg:ml-sidebar pt-header min-h-screen /* Adjusted pt */
            bg-gray-50 dark:bg-gray-900 
            transition-all duration-200 ease-out;
+    padding-bottom: 5rem; /* Add padding for footer */
   }
 
   .sidebar-overlay {
@@ -149,11 +150,6 @@ html, body {
   
   .button-group-item.active {
     @apply bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300;
-  }
-
-  /* Theme toggle */
-  .theme-toggle {
-    @apply p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-700;
   }
 
   /* Mobile sidebar */
@@ -207,11 +203,16 @@ html, body {
 
   /* Remove all direct calc() usage and replace with Tailwind classes */
   .sticky-sidebar {
-    @apply sticky top-16 h-screen-header;
+    @apply sticky top-header h-screen-header; /* Adjusted top */
   }
   
   .main-content {
-    @apply min-h-screen-header;
+    @apply min-h-screen-header; /* Adjusted min-height */
+  }
+
+  /* Dashboard Footer */
+  .dashboard-footer {
+    @apply bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-4 mt-auto; /* Added mt-auto */
   }
 }
 
@@ -330,12 +331,12 @@ select:not(.custom-select) {
 
   .sticky-sidebar {
     position: sticky;
-    top: 4rem; /* Matches header height */
-    height: calc(100vh - 4rem);
+    top: 4.5rem; /* Adjusted: Matches header height */
+    height: calc(100vh - 4.5rem); /* Adjusted */
   }
   
   .main-content {
-    min-height: calc(100vh - 8rem); /* Viewport - Header - Footer */
+    min-height: calc(100vh - 4.5rem - 4rem); /* Viewport - Header - Footer approx height */
   }
 
   /* Improved scrollbar utilities */
@@ -364,7 +365,7 @@ select:not(.custom-select) {
     height: -webkit-fill-available;
   }
   .h-screen-header {
-    height: calc(100vh - 4rem);
+    height: calc(100vh - 4.5rem); /* Adjusted */
   }
   .h-screen-64 {
     height: calc(100vh - 64px);

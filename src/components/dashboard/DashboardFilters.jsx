@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Select } from "../ui/Select";
 import { Button } from "../ui/Button";
+import { RotateCcw } from 'lucide-react';
 
 export default function DashboardFilters({ data, onFiltersChange }) {
   const [filters, setFilters] = useState({
@@ -64,10 +65,11 @@ export default function DashboardFilters({ data, onFiltersChange }) {
       </div>
 
       <Button
-        variant="secondary"
+        variant="primary"
         onClick={handleReset}
-        className="w-full mt-6"
+        className="w-full mt-6 bg-primary-600 hover:bg-primary-700 text-white flex items-center justify-center gap-2 py-3 shadow-md hover:shadow-lg transition-all duration-150"
       >
+        <RotateCcw size={18} />
         Reset Filters
       </Button>
     </div>

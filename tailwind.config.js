@@ -105,23 +105,23 @@ export default {
         '3xl': '1.5rem',
       },
       height: {
-        'screen-navbar': 'calc(100vh - 4rem)',
+        'screen-navbar': 'calc(100vh - 4.5rem)', // Adjusted
         'screen-4rem': 'calc(100vh - 4rem)',
         'screen-64': 'calc(100vh - 64px)',
-        'screen-header': 'calc(100vh - 4rem)',
-        'header': '4rem',
+        'screen-header': 'calc(100vh - 4.5rem)', // Adjusted
+        'header': '4.5rem', // Increased header height
       },
       minHeight: {
-        'screen-navbar': 'calc(100vh - 4rem)',
+        'screen-navbar': 'calc(100vh - 4.5rem)', // Adjusted
         'screen-4rem': 'calc(100vh - 4rem)',
         'screen-64': 'calc(100vh - 64px)',
-        'screen-header': 'calc(100vh - 4rem)',
+        'screen-header': 'calc(100vh - 4.5rem)', // Adjusted
       },
       maxHeight: {
-        'screen-navbar': 'calc(100vh - 4rem)',
+        'screen-navbar': 'calc(100vh - 4.5rem)', // Adjusted
         'screen-4rem': 'calc(100vh - 4rem)',
         'screen-64': 'calc(100vh - 64px)',
-        'screen-header': 'calc(100vh - 4rem)',
+        'screen-header': 'calc(100vh - 4.5rem)', // Adjusted
       },
       zIndex: {
         'sidebar': '40',
@@ -132,7 +132,7 @@ export default {
         'sidebar': '18rem',
       },
       spacing: {
-        header: '4rem',   // now pt-header, pb-header, etc. will work
+        header: '4.5rem',   // Adjusted: now pt-header, pb-header, etc. will work
         sidebar: '18rem', // now ml-sidebar, mr-sidebar, etc. will work
       },
     },

@@ -14,13 +14,16 @@ import BatteryRangeChart from './components/charts/BatteryRangeChart';
 import TimelineChart from './components/charts/TimelineChart';
 import UtilityDistributionChart from './components/charts/UtilityDistributionChart';
 import { Card, CardHeader, CardTitle, CardContent } from './components/ui/Card';
+import { Button } from './components/ui/Button'; // Assuming Button component exists or use standard button
+import { RotateCcw } from 'lucide-react'; // Icon for reset button
 
-import { BatteryCharging, Car, Map, GanttChart } from 'lucide-react';
+import { BatteryCharging, Car, Map, GanttChart, Copyright } from 'lucide-react';
 
 function DashboardApp() {
   const { data, loading, error } = useEVData();
   const [activeTab, setActiveTab] = useState('overview');
-  const [filters, setFilters] = useState({ year: 'all', make: 'all', county: 'all' });
+  const initialFilters = { year: 'all', make: 'all', county: 'all' }; // Define initial state
+  const [filters, setFilters] = useState(initialFilters);
   const filteredData = useFilteredData(data, filters);
   const [isDataReady, setIsDataReady] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -228,6 +231,15 @@ function DashboardApp() {
     'trends': <div className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 mr-2"><GanttChart size={14} /></div>,
   };
 
+  // Function to reset filters
+  const resetFilters = () => {
+    setFilters(initialFilters);
+    // Optionally close sidebar on mobile after reset
+    if (window.innerWidth < 1024 && sidebarOpen) {
+      toggleSidebar();
+    }
+  };
+
   // Sidebar toggle function with proper mobile handling
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -241,69 +253,80 @@ function DashboardApp() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <header className="dashboard-header">
         <DashboardHeader />
       </header>
       
-      {/* Overlay for mobile sidebar */}
-      {showOverlay && (
-        <div 
-          className="sidebar-overlay" 
-          onClick={handleContentClick}
-        />
-      )}
+      <div className="flex flex-1">
+        {/* Overlay for mobile sidebar */}
+        {showOverlay && (
+          <div 
+            className="sidebar-overlay" 
+            onClick={handleContentClick}
+          />
+        )}
 
-      {/* Sidebar */}
-      <aside
-        className={`dashboard-sidebar ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
-        <div className="p-4 h-full flex flex-col">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="font-semibold text-gray-800 dark:text-white">Filters</h2>
-            <button
-              onClick={toggleSidebar}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+        {/* Sidebar */}
+        <aside
+          className={`dashboard-sidebar ${
+            sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+        >
+          <div className="p-4 h-full flex flex-col">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="font-semibold text-gray-800 dark:text-white">Filters</h2>
+              <button
+                onClick={toggleSidebar}
+                className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                aria-label="Close sidebar"
+              >
+                <svg className="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <DashboardFilters data={data} onFiltersChange={setFilters} />
+            {/* Removed the duplicate reset filter button */}
           </div>
-          <DashboardFilters data={data} onFiltersChange={setFilters} />
-        </div>
-      </aside>
+        </aside>
 
-      {/* Main Content */}
-      <main className="dashboard-main">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex items-center gap-2 mb-6">
-            <button
-              onClick={toggleSidebar}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-200"
-              aria-label="Toggle sidebar"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-            <h2 className="text-xl font-semibold text-gray-800 dark:text-white flex items-center">
-              {tabIcons[activeTab]}
-              {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
-            </h2>
+        {/* Main Content */}
+        <main className="dashboard-main flex-1">
+          <div className="max-w-7xl mx-auto px-4 py-6">
+            <div className="flex items-center gap-2 mb-6">
+              <button
+                onClick={toggleSidebar}
+                className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-200"
+                aria-label="Toggle sidebar"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+              <h2 className="text-xl font-semibold text-gray-800 dark:text-white flex items-center">
+                {tabIcons[activeTab]}
+                {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
+              </h2>
+            </div>
+            
+            <DashboardTabs activeTab={activeTab} onTabChange={setActiveTab} />
+            {renderTabContent()}
           </div>
-          
-          <DashboardTabs activeTab={activeTab} onTabChange={setActiveTab} />
-          {renderTabContent()}
-        </div>
-      </main>
+        </main>
+      </div>
 
-      <footer className="bg-gray-800 dark:bg-gray-900 py-6">
-        <div className="max-w-7xl mx-auto px-4 text-center text-white">
-          <p className="text-sm opacity-90">Electric Vehicle Population Data Analytics Dashboard</p>
-          <p className="text-xs mt-1 text-gray-300">Data source: Washington State Department of Licensing</p>
+      {/* Updated Footer */}
+      <footer className="dashboard-footer">
+        <div className="layout-container text-center text-sm text-gray-600 dark:text-gray-400">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
+            <p className="flex items-center gap-1">
+              <Copyright size={14} /> {new Date().getFullYear()} EV Analytics Dashboard.
+            </p>
+            <p>
+              Data Source: <a href="https://catalog.data.gov/dataset/electric-vehicle-population-data" target="_blank" rel="noopener noreferrer" className="text-primary-600 dark:text-primary-400 hover:underline">WA State DOL</a>
+            </p>
+          </div>
         </div>
       </footer>
     </div>
