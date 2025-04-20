@@ -111,9 +111,12 @@ html, body {
   }
   
   .dashboard-sidebar {
-    @apply fixed left-0 w-sidebar h-[calc(100vh-4rem)] top-16 z-sidebar
+    @apply fixed left-0 w-sidebar top-16 z-sidebar
            bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700
-           transition-transform duration-200 ease-out lg:translate-x-0;
+           transition-transform duration-200 ease-out lg:translate-x-0
+           pb-[64px]; /* Add padding bottom to account for footer */
+    height: calc(100vh - 4rem - 96px); /* Subtract header height (4rem) and footer height (96px) */
+    overflow-y: auto;
   }
   
   .dashboard-main {
