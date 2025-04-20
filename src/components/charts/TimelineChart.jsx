@@ -13,6 +13,9 @@ import {
 } from 'chart.js';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '../ui/Card';
 
+// Remove incorrect import and theme-dependent code for now
+// import { useTheme } from '../../components/theme/ThemeProvider';
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -25,6 +28,10 @@ ChartJS.register(
 );
 
 export default function TimelineChart({ data }) {
+  // Remove theme-related code that might be causing issues
+  // const { theme } = useTheme();
+  // const isDark = theme === 'dark';
+
   const chartData = useMemo(() => {
     // Extract model years and count vehicles
     const yearCountMap = data.reduce((acc, vehicle) => {
@@ -211,7 +218,7 @@ export default function TimelineChart({ data }) {
         <CardDescription>Yearly registration of new electric vehicles</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="h-[300px]">
+        <div className="h-[250px] sm:h-[300px]">
           <Line data={chartData} options={options} />
         </div>
       </CardContent>

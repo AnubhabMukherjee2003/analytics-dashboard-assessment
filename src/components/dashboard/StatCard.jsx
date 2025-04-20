@@ -8,20 +8,20 @@ export default function StatCard({ title, value, delta, icon: Icon, className = 
     <Card className={`h-full transition-all duration-300 hover:translate-y-[-4px] ${className}`}>
       <div className="p-5">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-medium text-gray-500">{title}</h3>
+          <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</h3>
           {Icon && (
-            <div className="rounded-full bg-gray-50 p-2 text-gray-400">
+            <div className="rounded-full bg-gray-50 dark:bg-gray-700 p-2 text-gray-400 dark:text-gray-300">
               <Icon className="h-5 w-5" />
             </div>
           )}
         </div>
         <div className="mt-3">
-          <p className="text-2xl font-bold text-gray-900">{value}</p>
+          <p className="text-2xl font-bold text-gray-900 dark:text-white">{value}</p>
           {delta !== undefined && (
             <p className="mt-2 flex items-center text-sm">
               <span
                 className={`mr-1 flex items-center font-medium ${
-                  isPositive ? "text-success-600" : isNegative ? "text-danger-600" : "text-gray-500"
+                  isPositive ? "text-success-600 dark:text-success-500" : isNegative ? "text-danger-600 dark:text-danger-500" : "text-gray-500 dark:text-gray-400"
                 }`}
               >
                 {isPositive && (
@@ -36,7 +36,7 @@ export default function StatCard({ title, value, delta, icon: Icon, className = 
                 )}
                 {isPositive && "+"}{delta}%
               </span>
-              <span className="text-gray-500">from average</span>
+              <span className="text-gray-500 dark:text-gray-400">from average</span>
             </p>
           )}
         </div>

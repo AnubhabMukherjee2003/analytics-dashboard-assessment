@@ -3,7 +3,16 @@
 @tailwind utilities;
 
 html, body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .chart-container {
@@ -16,33 +25,32 @@ html, body {
   box-shadow: 0 12px 20px -4px rgba(0, 0, 0, 0.15), 0 6px 8px -2px rgba(0, 0, 0, 0.1);
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer base {
   html {
-    @apply text-gray-900;
+    @apply text-gray-900 dark:text-gray-100;
   }
   body {
-    @apply bg-gray-50;
+    @apply bg-gray-50 dark:bg-gray-900 transition-colors duration-200;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-medium tracking-tight;
+    @apply font-medium tracking-tight text-gray-900 dark:text-white;
+  }
+  p {
+    @apply text-gray-700 dark:text-gray-300;
   }
 }
 
 @layer components {
   .dashboard-card {
-    @apply bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-card-hover;
+    @apply bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm transition-all duration-300 hover:shadow-card-hover;
   }
   
   .dashboard-stat {
-    @apply bg-white rounded-xl border border-gray-200 shadow-sm p-4 transition-all duration-300 hover:shadow-md;
+    @apply bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-4 transition-all duration-300 hover:shadow-md;
   }
   
   .stat-value {
-    @apply text-2xl font-semibold;
+    @apply text-2xl font-semibold dark:text-white;
   }
   
   .chart-container {
@@ -55,17 +63,17 @@ html, body {
   }
   
   .custom-select {
-    @apply appearance-none bg-white border border-gray-300 rounded-lg px-3 py-2 pr-8 shadow-sm transition-all duration-150 ease-in-out;
-    @apply text-sm text-gray-700;
-    @apply focus:ring-2 focus:ring-primary-400/30 focus:border-primary-400 focus:outline-none;
-    @apply hover:border-gray-400;
+    @apply appearance-none bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 pr-8 shadow-sm transition-all duration-150 ease-in-out;
+    @apply text-sm text-gray-700 dark:text-gray-300;
+    @apply focus:ring-2 focus:ring-primary-400/30 dark:focus:ring-primary-700/30 focus:border-primary-400 dark:focus:border-primary-700 focus:outline-none;
+    @apply hover:border-gray-400 dark:hover:border-gray-500;
   }
   
   /* Styled Select */
   .styled-select {
-    @apply block w-full rounded-lg border-gray-300 shadow-sm;
-    @apply bg-white px-4 py-2.5 text-sm text-gray-700;
-    @apply focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 focus:outline-none;
+    @apply block w-full rounded-lg border-gray-300 dark:border-gray-600 shadow-sm;
+    @apply bg-white dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300;
+    @apply focus:border-primary-500 dark:focus:border-primary-700 focus:ring-2 focus:ring-primary-500/20 dark:focus:ring-primary-700/20 focus:outline-none;
     @apply transition duration-200 ease-in-out;
     @apply cursor-pointer;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
@@ -76,38 +84,51 @@ html, body {
   }
 
   .styled-select:hover {
-    @apply border-gray-400;
+    @apply border-gray-400 dark:border-gray-500;
   }
   
   .styled-select:focus {
-    @apply border-primary-500 ring-2 ring-primary-500/20;
+    @apply border-primary-500 dark:border-primary-700 ring-2 ring-primary-500/20 dark:ring-primary-700/20;
   }
   
   /* Custom chart card styles */
   .chart-card {
-    @apply bg-white rounded-xl border border-gray-200 shadow-sm transition-all duration-300;
-    @apply hover:shadow-card-hover hover:border-gray-300;
+    @apply bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm transition-all duration-300;
+    @apply hover:shadow-card-hover hover:border-gray-300 dark:hover:border-gray-600;
   }
 
   .chart-card-header {
-    @apply p-4 border-b border-gray-100 flex items-center justify-between;
+    @apply p-4 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between;
   }
 
   .chart-card-title {
-    @apply font-medium text-gray-800;
+    @apply font-medium text-gray-800 dark:text-white;
   }
   
   /* Dashboard UI Components */
   .dashboard-header {
-    @apply bg-white border-b border-gray-200 py-4 px-6 shadow-sm sticky top-0 z-10;
+    @apply fixed top-0 inset-x-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 h-header z-header;
   }
   
   .dashboard-sidebar {
-    @apply bg-white border-r border-gray-200 h-screen sticky top-0;
+    @apply fixed left-0 w-sidebar h-[calc(100vh-4rem)] top-16 z-sidebar
+           bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700
+           transition-transform duration-200 ease-out lg:translate-x-0;
   }
   
   .dashboard-main {
-    @apply p-6 bg-gray-50;
+    @apply lg:ml-sidebar pt-header min-h-screen
+           bg-gray-50 dark:bg-gray-900 
+           transition-all duration-200 ease-out;
+  }
+
+  .sidebar-overlay {
+    @apply fixed inset-0 bg-gray-900/60 z-overlay
+           lg:hidden transition-opacity duration-200;
+  }
+
+  .dashboard-main {
+    @apply flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900;
   }
   
   .dashboard-grid {
@@ -116,15 +137,78 @@ html, body {
   
   /* Button groups */
   .button-group {
-    @apply flex rounded-lg overflow-hidden border border-gray-300 divide-x divide-gray-300;
+    @apply flex rounded-lg overflow-hidden border border-gray-300 dark:border-gray-600 divide-x divide-gray-300 dark:divide-gray-600;
   }
   
   .button-group-item {
-    @apply px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-2 focus:ring-primary-500;
+    @apply px-4 py-2 bg-white dark:bg-gray-800 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-10 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-700;
   }
   
   .button-group-item.active {
-    @apply bg-primary-50 text-primary-700;
+    @apply bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300;
+  }
+
+  /* Theme toggle */
+  .theme-toggle {
+    @apply p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-700;
+  }
+
+  /* Mobile sidebar */
+  .mobile-sidebar-open {
+    @apply translate-x-0;
+  }
+  
+  .mobile-sidebar-closed {
+    @apply -translate-x-full;
+  }
+  
+  /* Improve dark mode text visibility */
+  .dark .text-gray-500 {
+    @apply text-gray-400;
+  }
+  
+  .dark .text-gray-600 {
+    @apply text-gray-300;
+  }
+  
+  .dark .text-gray-700 {
+    @apply text-gray-300;
+  }
+  
+  /* Responsive chart containers */
+  .responsive-chart {
+    @apply w-full h-full min-h-[250px] sm:min-h-[300px];
+  }
+
+  /* Additional layout utilities */
+  .layout-height {
+    height: calc(100vh - 64px);
+  }
+
+  .dashboard-layout {
+    @apply flex flex-1 overflow-hidden;
+  }
+
+  /* Fixed height calculations - replaced calc() expressions */
+  .height-screen-minus-64px {
+    height: calc(100vh - 64px);
+  }
+  
+  .max-height-screen-minus-4rem {
+    max-height: calc(100vh - 4rem);
+  }
+  
+  .min-height-screen-minus-4rem {
+    min-height: calc(100vh - 4rem);
+  }
+
+  /* Remove all direct calc() usage and replace with Tailwind classes */
+  .sticky-sidebar {
+    @apply sticky top-16 h-screen-header;
+  }
+  
+  .main-content {
+    @apply min-h-screen-header;
   }
 }
 
@@ -168,25 +252,129 @@ html, body {
   background: #a1a1a1;
 }
 
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #6B7280;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #9CA3AF;
+}
+
 /* Enhanced buttons */
 button.btn-primary {
-  @apply bg-primary-600 hover:bg-primary-700 text-white;
+  @apply bg-primary-600 hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-800 text-white;
   @apply shadow-button hover:shadow-button-hover transition-all duration-150;
 }
 
 button.btn-secondary {
-  @apply bg-gray-100 hover:bg-gray-200 text-gray-800;
-  @apply border border-gray-300 shadow-button hover:shadow-button-hover transition-all duration-150;
+  @apply bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200;
+  @apply border border-gray-300 dark:border-gray-600 shadow-button hover:shadow-button-hover transition-all duration-150;
 }
 
 /* Better select styling for native selects */
 select:not(.custom-select) {
-  @apply appearance-none bg-white border border-gray-300 rounded-lg px-3 py-2 pr-8 shadow-sm;
-  @apply text-sm text-gray-700;
-  @apply focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 focus:outline-none;
-  @apply hover:border-gray-400;
+  @apply appearance-none bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 pr-8 shadow-sm;
+  @apply text-sm text-gray-700 dark:text-gray-300;
+  @apply focus:ring-2 focus:ring-primary-500/30 dark:focus:ring-primary-700/30 focus:border-primary-500 dark:focus:border-primary-700 focus:outline-none;
+  @apply hover:border-gray-400 dark:hover:border-gray-500;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.5rem center;
   background-size: 1.25rem;
+}
+
+@layer utilities {
+  /* Sidebar utilities */
+  .sidebar-open {
+    @apply translate-x-0;
+  }
+  
+  .sidebar-closed {
+    @apply -translate-x-full md:translate-x-0;
+  }
+
+  /* Responsive padding utilities */
+  .content-padding {
+    @apply p-4 sm:p-6 lg:p-8;
+  }
+  
+  /* Z-index utilities */
+  .z-sidebar {
+    @apply z-50;
+  }
+  
+  .z-overlay {
+    @apply z-40;
+  }
+  
+  .z-header {
+    @apply z-30;
+  }
+
+  /* Layout utilities */
+  .layout-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .dashboard-content {
+    @apply max-w-full mx-auto;
+  }
+
+  .sticky-sidebar {
+    position: sticky;
+    top: 4rem; /* Matches header height */
+    height: calc(100vh - 4rem);
+  }
+  
+  .main-content {
+    min-height: calc(100vh - 8rem); /* Viewport - Header - Footer */
+  }
+
+  /* Improved scrollbar utilities */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.5);
+    border-radius: 3px;
+  }
+}
+
+/* Fix for mobile safari height issues */
+@supports (-webkit-touch-callout: none) {
+  .h-screen {
+    height: -webkit-fill-available;
+  }
+  .h-screen-header {
+    height: calc(100vh - 4rem);
+  }
+  .h-screen-64 {
+    height: calc(100vh - 64px);
+  }
+}
+
+/* Improve mobile touch targets */
+@media (max-width: 768px) {
+  .button-group-item {
+    @apply py-2.5 px-4;
+  }
+  
+  .select-wrapper select {
+    @apply py-2.5;
+  }
 }

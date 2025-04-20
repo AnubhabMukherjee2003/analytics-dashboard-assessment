@@ -4,6 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,jsx}",
   ],
+  darkMode: 'class', // Enable dark mode with class strategy
   theme: {
     extend: {
       colors: {
@@ -102,6 +103,37 @@ export default {
         'xl': '0.75rem',
         '2xl': '1rem',
         '3xl': '1.5rem',
+      },
+      height: {
+        'screen-navbar': 'calc(100vh - 4rem)',
+        'screen-4rem': 'calc(100vh - 4rem)',
+        'screen-64': 'calc(100vh - 64px)',
+        'screen-header': 'calc(100vh - 4rem)',
+        'header': '4rem',
+      },
+      minHeight: {
+        'screen-navbar': 'calc(100vh - 4rem)',
+        'screen-4rem': 'calc(100vh - 4rem)',
+        'screen-64': 'calc(100vh - 64px)',
+        'screen-header': 'calc(100vh - 4rem)',
+      },
+      maxHeight: {
+        'screen-navbar': 'calc(100vh - 4rem)',
+        'screen-4rem': 'calc(100vh - 4rem)',
+        'screen-64': 'calc(100vh - 64px)',
+        'screen-header': 'calc(100vh - 4rem)',
+      },
+      zIndex: {
+        'sidebar': '40',
+        'header': '50',
+        'overlay': '30',
+      },
+      width: {
+        'sidebar': '18rem',
+      },
+      spacing: {
+        header: '4rem',   // now pt-header, pb-header, etc. will work
+        sidebar: '18rem', // now ml-sidebar, mr-sidebar, etc. will work
       },
     },
   },
